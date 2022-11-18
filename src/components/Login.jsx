@@ -9,6 +9,7 @@ import Col from 'react-bootstrap/Col';
 import { messageDisplayHelper } from '../utils/messageDisplayHelper';
 import { useDispatch, useSelector } from 'react-redux';
 import { axiosInstance } from '../axiosInstance';
+import Cookies from 'js-cookie';
 
 const Login = () => {
     const [loginResponseMessage, setLoginResponseMessage] = useState(false);
@@ -49,6 +50,8 @@ const Login = () => {
         }, { withCredentials: true });
 
         console.log('Login', response);
+
+        Cookies.set('token',response.data.token);
 
         // Setting the reponse message whether success/error 
         messageDisplayHelper(response, dispatch);

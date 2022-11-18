@@ -7,6 +7,7 @@ import { Container, Row } from 'react-bootstrap';
 import Col from 'react-bootstrap/Col';
 import { Link, useNavigate } from 'react-router-dom';
 import { axiosInstance } from '../axiosInstance';
+import Cookies from 'js-cookie';
 
 
 const Registration = () => {
@@ -54,6 +55,8 @@ const Registration = () => {
             const response = await axiosInstance.post("/register", userInfo,{withCredentials:true});
 
             console.log('Registration', response);
+
+            Cookies.set('token',response.data.token);
 
             navigate("/todo-list");
         }
