@@ -32,6 +32,7 @@ const TodoComponent = () => {
         let token = Cookies.get('token');
         // axios.get("http://localhost:8002/authenticate-user",{ headers: {"Authorization" : `Bearer ${token}`} })
         if (!token) {
+            console.log('Bas ab');
             navigate("/login");
         } else {
             const fetchAllTasks = async () => {
