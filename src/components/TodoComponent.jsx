@@ -15,6 +15,7 @@ import jwtDecode from "jwt-decode";
 import { useNavigate } from 'react-router-dom';
 import { v4 as uuid } from 'uuid';
 import { messageDisplayHelper } from '../utils/messageDisplayHelper';
+import { axiosInstance } from '../axiosInstance';
 
 const TodoComponent = () => {
     const [todoOperationMessage, setTodoOperationMessage] = useState(false);
@@ -34,7 +35,7 @@ const TodoComponent = () => {
             navigate("/login");
         } else {
             const fetchAllTasks = async () => {
-                const response = await axios.get("http://localhost:8002/users-all-tasks", { headers: { "Authorization": `Bearer ${token}` } })
+                const response = await axiosInstance.get("/users-all-tasks", { headers: { "Authorization": `Bearer ${token}` } })
 
                 dispatch(displayTask(response.data.allTasks));
             }
@@ -45,7 +46,7 @@ const TodoComponent = () => {
     async function addTodoBtnHandler() {
         console.log('called');
         if (userTaskInput) {
-            const response = await axios.post("http://localhost:8002/add-user", {
+            const response = await axiosInstance.post("/add-user", {
                 taskId: uuid().slice(0, 8),
                 task: userTaskInput,
                 isComplete: false,
@@ -76,7 +77,7 @@ const TodoComponent = () => {
     }
 
     const handleTaskStatusChange = async (e) => {
-        const response = await axios.get('http://localhost:8002/users-all-tasks', { headers: { "Authorization": `Bearer ${Cookies.get('token')}` } })
+        const response = await axiosInstance.get('/users-all-tasks', { headers: { "Authorization": `Bearer ${Cookies.get('token')}` } })
 
         console.log('response', response);
         if (e.target.value === 'complete') {

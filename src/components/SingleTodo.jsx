@@ -16,6 +16,7 @@ import Form from 'react-bootstrap/Form';
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Tooltip from 'react-bootstrap/Tooltip';
 import Alert from 'react-bootstrap/Alert'
+import { axiosInstance } from '../axiosInstance';
 
 
 const SingleTodo = ({ todo, todoOperationMessage, setTodoOperationMessage }) => {
@@ -33,7 +34,7 @@ const SingleTodo = ({ todo, todoOperationMessage, setTodoOperationMessage }) => 
 
     let token = Cookies.get('token');
     const deleteTodoHandler = async (taskId) => {
-        const response = await axios.delete(`http://localhost:8002/delete-user-task/${taskId}`, { headers: { "Authorization": `Bearer ${token}` } })
+        const response = await axiosInstance.delete(`/delete-user-task/${taskId}`, { headers: { "Authorization": `Bearer ${token}` } })
         console.log('This is resp of delete', response);
 
         dispatch(deleteTask(response.data.allTasks));
@@ -59,8 +60,8 @@ const SingleTodo = ({ todo, todoOperationMessage, setTodoOperationMessage }) => 
             return setUpdateTaskInputError(true)
         }
 
-        const response = await axios.post(
-            `http://localhost:8002/update-user-task/${taskId}`,
+        const response = await axiosInstance.post(
+            `/update-user-task/${taskId}`,
             {
                 newUpdatedTask: updateTaskInput.toLowerCase(),
             },
@@ -83,7 +84,7 @@ const SingleTodo = ({ todo, todoOperationMessage, setTodoOperationMessage }) => 
     const completeTaskHandler = async (isComplete, taskId) => {
         // console.log('isComplete', isComplete);
 
-        const response = await axios.post(`http://localhost:8002/update-task-status/${taskId}`,
+        const response = await axiosInstance.post(`/update-task-status/${taskId}`,
             {
                 isComplete,
             },

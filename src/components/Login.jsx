@@ -8,6 +8,7 @@ import { Alert, Container, Row } from 'react-bootstrap';
 import Col from 'react-bootstrap/Col';
 import { messageDisplayHelper } from '../utils/messageDisplayHelper';
 import { useDispatch, useSelector } from 'react-redux';
+import { axiosInstance } from '../axiosInstance';
 
 const Login = () => {
     const [loginResponseMessage, setLoginResponseMessage] = useState(false);
@@ -42,7 +43,7 @@ const Login = () => {
         setLoginError({});
 
         // If there are no validation errors then the api call is done and we get the response from the server.
-        const response = await axios.post("http://localhost:8002/login", {
+        const response = await axiosInstance.post("/login", {
             email: emailRef.current.value,
             password: passwordRef.current.value,
         }, { withCredentials: true });

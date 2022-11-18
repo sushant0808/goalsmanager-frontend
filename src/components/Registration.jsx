@@ -6,6 +6,7 @@ import axios from "axios";
 import { Container, Row } from 'react-bootstrap';
 import Col from 'react-bootstrap/Col';
 import { Link, useNavigate } from 'react-router-dom';
+import { axiosInstance } from '../axiosInstance';
 
 
 const Registration = () => {
@@ -50,7 +51,7 @@ const Registration = () => {
         } else {
             console.log('Else me');
             setUserFieldsError({}); // If there are no errors then set it to empty object
-            const response = await axios.post("http://localhost:8002/register", userInfo,{withCredentials:true});
+            const response = await axiosInstance.post("/register", userInfo,{withCredentials:true});
 
             console.log('Registration', response);
 
