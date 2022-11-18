@@ -1,0 +1,23 @@
+
+
+/* Todo styling */
+.common-row{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.todo-header-row{
+  /* background-color: pink; */
+  /* padding: 20px; */
+}
+
+.todo-main-row{
+  /* background-color: lightgreen; */
+  padding: 15px 10px;
+}
+
+.error{
+  color:red;
+  font-weight:bold;
+}
