@@ -15,7 +15,6 @@ import jwtDecode from "jwt-decode";
 import { useNavigate } from 'react-router-dom';
 import { v4 as uuid } from 'uuid';
 import { messageDisplayHelper } from '../utils/messageDisplayHelper';
-import { axiosInstance } from '../axiosInstance';
 
 const TodoComponent = () => {
     const [todoOperationMessage, setTodoOperationMessage] = useState(false);
