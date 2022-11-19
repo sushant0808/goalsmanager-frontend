@@ -52,12 +52,15 @@ const Registration = () => {
         } else {
             console.log('Else me');
             setUserFieldsError({}); // If there are no errors then set it to empty object
-            const response = await axiosInstance.post("/register", userInfo,{withCredentials:true});
+            const response = await axiosInstance.post("/register", userInfo, { withCredentials: true });
 
             console.log('Registration', response);
 
-            Cookies.set('token',response.data.token);
-
+            // Here I have to manually set cookies in frontend because when I am hosting this website the backend is not able to send cookies to frontend
+            if (response.data.status === 200) {
+                Cookies.set('token', response.data.token);
+            }
+            
             navigate("/todo-list");
         }
 

@@ -51,7 +51,11 @@ const Login = () => {
 
         console.log('Login', response);
 
-        Cookies.set('token',response.data.token);
+         // Here I have to manually set cookies in frontend because when I am hosting this website the backend is not able to send cookies to frontend
+        if(response.data.status === 200){
+            Cookies.set('token',response.data.token);
+        }
+
 
         // Setting the reponse message whether success/error 
         messageDisplayHelper(response, dispatch);
