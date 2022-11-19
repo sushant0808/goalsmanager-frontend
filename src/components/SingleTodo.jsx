@@ -20,6 +20,7 @@ import { axiosInstance } from '../axiosInstance';
 
 
 const SingleTodo = ({ todo, todoOperationMessage, setTodoOperationMessage }) => {
+    const [modalType, setModalType] = useState(""); // This state variable will be either deletModal or updateModal and based on this varaible we will show the relevant modal body
     const [show, setShow] = useState(false);
     const [updateTaskInput, setUpdateTaskInput] = useState("");
     const [updateTaskInputError, setUpdateTaskInputError] = useState(false);
@@ -44,6 +45,9 @@ const SingleTodo = ({ todo, todoOperationMessage, setTodoOperationMessage }) => 
 
         // Showing the success/error message
         setTodoOperationMessage(true);
+
+        // Closing the modal
+        setShow(false);
     }
 
     const closeUpdateModal = () => {
@@ -51,7 +55,8 @@ const SingleTodo = ({ todo, todoOperationMessage, setTodoOperationMessage }) => 
         setUpdateTaskInputError(false);
     }
 
-    const showUpdateModal = async () => {
+    const showUpdateModal = async (typeOfModal) => {
+        setModalType(typeOfModal);
         setShow(true)
     }
 
@@ -106,17 +111,13 @@ const SingleTodo = ({ todo, todoOperationMessage, setTodoOperationMessage }) => 
 
     return (
         <Row className='common-row todo-main-row'>
-            {/* <Alert variant={todo.isComplete === true ? 'success' : 'warning'}> */}
             <Col lg={7} style={{ display: 'flex', alignItems: 'center', background: todo.isComplete ? '#89c26d' : '#db4d4b', padding: '16px' }}>
-                {/* <Form.Group controlId="formBasicCheckbox">
-                        <Form.Check type="checkbox" onChange={completeTaskHandler}/>
-                    </Form.Group> */}
                 <div style={{ textTransform: 'capitalize', fontSize: '18px' }}><b>{todo.task}</b></div>
                 <div style={{ marginLeft: 'auto', width: '40px', ...flexCommonProperties, marginRight: '20px', fontSize: '18px' }}>
 
                     {
                         todo.isComplete === true ? (
-                            <MdRemoveDone title='Mark as incomplete'  style={{ fontSize: '22px' }} onClick={() => completeTaskHandler(todo.isComplete, todo.taskId)} />
+                            <MdRemoveDone title='Mark as incomplete' style={{ fontSize: '22px' }} onClick={() => completeTaskHandler(todo.isComplete, todo.taskId)} />
                         ) : (
                             <MdDoneAll title='Mark as complete' style={{ fontSize: '22px' }} onClick={() => completeTaskHandler(todo.isComplete, todo.taskId)} />
                         )
@@ -129,30 +130,51 @@ const SingleTodo = ({ todo, todoOperationMessage, setTodoOperationMessage }) => 
 
                         </Modal.Header>
                         <Modal.Body>
-                            <label>New task name</label>
-                            <input type="text" className="form-control" placeholder="Eg: Yoga" required={true} value={updateTaskInput}
-                                onChange={(e) => setUpdateTaskInput(e.target.value)}
-                            />
+
                             {
-                                updateTaskInputError ? (
-                                    <span style={{ color: 'red' }}>Update input cannot be empty</span>
-                                ) : null
+                                modalType === 'editModal' ? (
+                                    <>
+                                        <label>New task name</label>
+                                        <input type="text" className="form-control" placeholder="Eg: Yoga" required={true} value={updateTaskInput}
+                                            onChange={(e) => setUpdateTaskInput(e.target.value)}
+                                        />
+                                        {
+                                            updateTaskInputError ? (
+                                                <span style={{ color: 'red' }}>Update input cannot be empty</span>
+                                            ) : null
+                                        }
+                                    </>
+                                ) : (
+                                    <h4>
+                                        Are you sure you want to delete this task?
+                                    </h4>
+                                )
                             }
                         </Modal.Body>
                         <Modal.Footer>
                             <Button variant="secondary" onClick={closeUpdateModal}>
                                 Close
                             </Button>
-                            <Button variant="primary" onClick={() => updateTodo(todo.taskId)}>
-                                Update
-                            </Button>
+
+                            {
+                                modalType === 'editModal' ? (
+                                    <Button variant="primary" onClick={() => updateTodo(todo.taskId)}>
+                                        Update
+                                    </Button>
+                                ) : (
+                                    <Button variant="primary" onClick={() => deleteTodoHandler(todo.taskId)}>
+                                        Delete
+                                    </Button>
+                                )
+                            }
+
                         </Modal.Footer>
                     </Modal>
 
-                    <GrEdit title='Edit Task' style={{ fontSize: '18px' }} onClick={() => showUpdateModal(todo.taskId)} />
+                    <GrEdit title='Edit Task' style={{ fontSize: '18px' }} onClick={() => showUpdateModal('editModal')} />
                 </div>
                 <div style={{ width: '40px', ...flexCommonProperties, color: 'black' }}>
-                    <MdDelete title='Delete task' style={{ fontSize: '20px' }} onClick={() => deleteTodoHandler(todo.taskId)} />
+                    <MdDelete title='Delete task' style={{ fontSize: '20px' }} onClick={() => showUpdateModal('deleteModal')} />
                 </div>
             </Col>
             {/* </Alert> */}
