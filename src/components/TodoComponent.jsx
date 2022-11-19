@@ -36,7 +36,9 @@ const TodoComponent = () => {
             navigate("/login");
         } else {
             const fetchAllTasks = async () => {
-                const response = await axiosInstance.get("/users-all-tasks", { headers: { "Authorization": `Bearer ${token}` } })
+                // const response = await axiosInstance.get("/users-all-tasks", { headers: { "Authorization": `Bearer ${token}` } })
+                const response = await axios.get("http://localhost:5000/users-all-tasks", { headers: { "Authorization": `Bearer ${token}` } })
+
 
                 dispatch(displayTask(response.data.allTasks));
             }
@@ -97,25 +99,27 @@ const TodoComponent = () => {
     }
 
     const handleSortHandler = (e) => {
-        const newArr = [...todos];
-        newArr.sort(function (a, b) {
-            var nameA = a.task.toLowerCase(), nameB = b.task.toLowerCase();
-            if (nameA < nameB) //sort string ascending
-                if(e.target.value === 'asc'){
-                    return -1;
-                }else{
-                    return 1;
-                }
-            if (nameA > nameB)
-                if(e.target.value === 'asc'){
-                    return 1;
-                }else{
-                    return -1;
-                }
-            return 0; //default return value (no sorting)
-        });
-
-        dispatch(showSortTaskCreator(newArr));
+        setTimeout(() => {
+            const newArr = [...todos];
+            newArr.sort(function (a, b) {
+                var nameA = a.task.toLowerCase(), nameB = b.task.toLowerCase();
+                if (nameA < nameB) //sort string ascending
+                    if(e.target.value === 'asc'){
+                        return -1;
+                    }else{
+                        return 1;
+                    }
+                if (nameA > nameB)
+                    if(e.target.value === 'asc'){
+                        return 1;
+                    }else{
+                        return -1;
+                    }
+                return 0; //default return value (no sorting)
+            });
+    
+            dispatch(showSortTaskCreator(newArr));
+        }, 1000);
     }
 
     return (
