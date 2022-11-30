@@ -36,8 +36,8 @@ const TodoComponent = () => {
             navigate("/login");
         } else {
             const fetchAllTasks = async () => {
-                // const response = await axiosInstance.get("/users-all-tasks", { headers: { "Authorization": `Bearer ${token}` } })
-                const response = await axios.get("http://localhost:5000/users-all-tasks", { headers: { "Authorization": `Bearer ${token}` } })
+                const response = await axiosInstance.get("/users-all-tasks", { headers: { "Authorization": `Bearer ${token}` } })
+                // const response = await axios.get("http://localhost:5000/users-all-tasks", { headers: { "Authorization": `Bearer ${token}` } })
 
 
                 dispatch(displayTask(response.data.allTasks));
