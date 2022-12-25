@@ -5,11 +5,19 @@ const todoInitialState = {
     responseMessage: {
         message: '',
         variant: '',
-    }
+    },
+    user:{},
 }
 
 export const TodoReducer = (state = todoInitialState, action) => {
     switch (action.type) {
+
+        case ACTIONS.SET_USER:
+            return {
+                ...state,
+                user:action.payload,
+            }
+
         case ACTIONS.ADD_TASK:
             return {
                 ...state,
