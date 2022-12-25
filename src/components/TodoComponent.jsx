@@ -25,6 +25,8 @@ const TodoComponent = () => {
     const todos = useSelector(state => state.todos);
     const responseMessage = useSelector(state => state.responseMessage);
     const dispatch = useDispatch();
+    const user = useSelector(state => state.user);
+    console.log('user',user);
 
     console.log('Todo state', todos);
 
@@ -38,7 +40,6 @@ const TodoComponent = () => {
             const fetchAllTasks = async () => {
                 const response = await axiosInstance.get("/users-all-tasks", { headers: { "Authorization": `Bearer ${token}` } })
                 // const response = await axios.get("http://localhost:5000/users-all-tasks", { headers: { "Authorization": `Bearer ${token}` } })
-
 
                 dispatch(displayTask(response.data.allTasks));
             }
@@ -127,7 +128,6 @@ const TodoComponent = () => {
 
             {
                 <Container fluid="md">
-
                     <div style={{ display: 'flex', alignItems: 'center', padding: '20px', justifyContent: 'space-between' }}>
                         {
                             todoOperationMessage ? (
@@ -141,7 +141,9 @@ const TodoComponent = () => {
                             )
                         }
                         <Button onClick={logOutUser}>Log out</Button>
+                        <p>Welcome <b>{user.username}</b></p>
                     </div>
+
 
                     <Row className="common-row todo-header-row">
                         <Col lg={7}>
