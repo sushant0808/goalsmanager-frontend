@@ -37,12 +37,12 @@ function App() {
       {/* <TodoComponent/> */}
       <Router>
         <Routes>
-          <Route path="/" element={<Home/>}></Route>
-          <Route path="/register" element={<Registration/>}></Route>
-          <Route path="/login" element={<Login/>}></Route>
-          <Route path='/todo-list' element={<TodoComponent/>}></Route>
-          <Route path='/reset-password-email' element={<SendResetPasswordEmail/>}></Route>
-          <Route path='/reset-password/:userId' element={<ResetPasswordComp/>}></Route>
+          <Route exact path="/" element={<Home/>}></Route>
+          <Route exact path="/register" element={<Registration/>}></Route>
+          <Route exact path="/login" element={<Login/>}></Route>
+          <Route exact path='/todo-list' element={<TodoComponent/>}></Route>
+          <Route exact path='/reset-password-email' element={<SendResetPasswordEmail/>}></Route>
+          <Route exact path='/reset-password/:userId' element={<ResetPasswordComp/>}></Route>
         </Routes>
       </Router>
     </>
