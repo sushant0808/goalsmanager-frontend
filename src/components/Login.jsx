@@ -10,6 +10,7 @@ import { messageDisplayHelper } from '../utils/messageDisplayHelper';
 import { useDispatch, useSelector } from 'react-redux';
 import { axiosInstance } from '../axiosInstance';
 import Cookies from 'js-cookie';
+import { setUser } from '../TodoActionCreators';
 
 const Login = () => {
     const [loginResponseMessage, setLoginResponseMessage] = useState(false);
@@ -56,6 +57,8 @@ const Login = () => {
             Cookies.set('token',response.data.token);
         }
 
+        // Set the user in our state/store so that we can access it across the application
+        dispatch(setUser(response.data.userObj))
 
         // Setting the reponse message whether success/error 
         messageDisplayHelper(response, dispatch);
@@ -64,7 +67,9 @@ const Login = () => {
         setLoginResponseMessage(true);
 
         if(response.data.status === 200){
+            console.log('in iffffff')
             setTimeout(() => {
+                console.log('in setTimeOut')
                 navigate("/todo-list");
             },1000) 
         }
@@ -111,6 +116,7 @@ const Login = () => {
                             </Button>
 
                             <p className='mt-2'>Don't have an Account ? <Link to="/register">Create Account</Link></p>
+                            <p className='mt-2'>Forgot Password ? <Link to="/reset-password-email">Resest Password</Link></p>
                         </Form>
 
                     </Col>
