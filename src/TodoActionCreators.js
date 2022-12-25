@@ -1,5 +1,14 @@
 import { ACTIONS } from "./TodoActions"
 
+
+export const setUser = (user) => {
+    console.log('setUser')
+    return {
+        type: ACTIONS.SET_USER,
+        payload: user
+    }
+}
+
 export const addTask = (userTask) => {
     return {
         type: ACTIONS.ADD_TASK,
@@ -8,6 +17,7 @@ export const addTask = (userTask) => {
 }
 
 export const displayTask = (allTasks) => {
+    console.log('displayTask')
     return {
         type: ACTIONS.DISPLAY_TASK,
         payload: allTasks,
@@ -44,34 +54,34 @@ export const clearAllTaskCreator = () => {
 export const completeTaskCreator = (allTasks) => {
     return {
         type: ACTIONS.COMPLETE_TASK,
-        payload:allTasks,
+        payload: allTasks,
     }
 }
 
 export const showCompleteTaskCreator = (allTasks) => {
     return {
-        type:ACTIONS.SHOW_COMPLETE_TASK,
-        payload:allTasks,
+        type: ACTIONS.SHOW_COMPLETE_TASK,
+        payload: allTasks,
     }
 }
 
 export const showIncompleteTaskCreator = (allTasks) => {
     return {
-        type:ACTIONS.SHOW_INCOMPLETE_TASK,
-        payload:allTasks,
+        type: ACTIONS.SHOW_INCOMPLETE_TASK,
+        payload: allTasks,
     }
-} 
+}
 
 export const showAllTaskCreator = (allTasks) => {
     return {
-        type:ACTIONS.SHOW_ALL_TASKS,
-        payload:allTasks,
+        type: ACTIONS.SHOW_ALL_TASKS,
+        payload: allTasks,
     }
 }
 
 export const showSortTaskCreator = (allTasks) => {
     return {
-        type:ACTIONS.SORT_TASKS,
-        payload:allTasks,
+        type: ACTIONS.SORT_TASKS,
+        payload: allTasks,
     }
 }
