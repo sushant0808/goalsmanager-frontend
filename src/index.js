@@ -6,6 +6,7 @@ import App from './App';
 import { store } from './Store';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
+console.log('Store hai ye',store);
 root.render(
   // <React.StrictMode>
 
