@@ -1,0 +1,49 @@
+
+
+/* Todo styling */
+.common-row{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.todo-header-row{
+  /* background-color: pink; */
+  /* padding: 20px; */
+}
+
+.todo-main-row{
+  /* background-color: lightgreen; */
+  padding: 15px 10px;
+}
+
+.error{
+  color:red;
+  font-weight:bold;
+}
+
+/* Styling Send Email Component */
+.send-email-main-div{
+  height: 100vh;
+  margin-top: 100px;
+}
+
+.send-email-row{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.send-email-alert-message-div{
+  display: flex;
+  justify-content: center;
+}
+
+.send-email-div{
+  display: flex;
+  flex-direction: column;
+  height: 300px;
+  border: 1px solid #ddd;
+  justify-content: center;
+  padding: 30px;
+}
