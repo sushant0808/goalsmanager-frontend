@@ -26,7 +26,7 @@ const TodoComponent = () => {
     const responseMessage = useSelector(state => state.responseMessage);
     const dispatch = useDispatch();
     const user = useSelector(state => state.user);
-    console.log('user',user);
+    console.log('user', user);
 
     console.log('Todo state', todos);
 
@@ -57,7 +57,9 @@ const TodoComponent = () => {
             }, { headers: { "Authorization": `Bearer ${Cookies.get('token')}` } })
 
             console.log('added resp', response);
-            dispatch(addTask(response.data.createdTask));
+            if (response.data.status === 200) {
+                dispatch(addTask(response.data.createdTask));
+            }
 
             // Setting success/error message of the operation performed for user to know
             messageDisplayHelper(response, dispatch);
@@ -105,20 +107,20 @@ const TodoComponent = () => {
             newArr.sort(function (a, b) {
                 var nameA = a.task.toLowerCase(), nameB = b.task.toLowerCase();
                 if (nameA < nameB) //sort string ascending
-                    if(e.target.value === 'asc'){
+                    if (e.target.value === 'asc') {
                         return -1;
-                    }else{
+                    } else {
                         return 1;
                     }
                 if (nameA > nameB)
-                    if(e.target.value === 'asc'){
+                    if (e.target.value === 'asc') {
                         return 1;
-                    }else{
+                    } else {
                         return -1;
                     }
                 return 0; //default return value (no sorting)
             });
-    
+
             dispatch(showSortTaskCreator(newArr));
         }, 1000);
     }
@@ -165,7 +167,7 @@ const TodoComponent = () => {
                     <hr></hr>
                     <div style={{ height: '450px', overflowY: 'auto', overflowX: 'hidden' }}>
                         <Row className='common-row'>
-                            <Col lg={7} style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center', gap: '10px'}}>
+                            <Col lg={7} style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center', gap: '10px' }}>
                                 <label>Filter</label>
                                 <select className='form-control' style={{ width: "20%", cursor: 'pointer' }} onChange={handleTaskStatusChange}>
                                     <option value="all">All</option>
