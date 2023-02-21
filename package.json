@@ -48,5 +48,6 @@
   },
   "devDependencies": {
     "@redux-devtools/core": "^3.13.1"
-  }
+  },
+  "proxy": "https://task-manager-api-r6zi.onrender.com/"
 }
