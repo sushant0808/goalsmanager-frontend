@@ -9,7 +9,7 @@ import Login from './components/Login';
 import SendResetPasswordEmail from './components/SendResetPasswordEmail';
 import ResetPasswordComp from './components/ResetPasswordComp';
 import { useDispatch, useSelector } from 'react-redux';
-import { useEffect } from 'react';
+import React, { useEffect } from 'react';
 import axios from 'axios';
 import { axiosInstance } from './axiosInstance';
 import Cookies from 'js-cookie';
@@ -21,7 +21,7 @@ function App() {
 
   const sendReminderEmail = async () => {
     let token = Cookies.get('token');
-    const response = await axiosInstance.get("/send-reminder-email", { headers: { "Authorization": `Bearer ${token}` } })
+    const response = await axios.get("/send-reminder-email", { headers: { "Authorization": `Bearer ${token}` } })
     console.log('send reminder email wala',response);
   }
 
@@ -56,7 +56,7 @@ function App() {
     setTimeout(() => {
       let token = Cookies.get('token');
       const deleteUserTasks = async () => {
-        const resp = await axiosInstance.delete("/delete-users-all-tasks", { headers: { "Authorization": `Bearer ${token}` } });
+        const resp = await axios.delete("/delete-users-all-tasks", { headers: { "Authorization": `Bearer ${token}` } });
         console.log('Users all task deleted resp', resp);
 
         dispatch(displayTask(resp.data.allTasks));
@@ -71,7 +71,7 @@ function App() {
     const token = Cookies.get("token");
     // Get the authenticated user
     async function getAuthenticatedUser() {
-      const resp = await axiosInstance.get("/get-authenticated-user", { headers: { "Authorization": `Bearer ${token}` } })
+      const resp = await axios.get("/get-authenticated-user", { headers: { "Authorization": `Bearer ${token}` } })
       console.log('resp hai be', resp);
 
       dispatch(setUser(resp.data.userData));
