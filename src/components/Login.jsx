@@ -45,7 +45,7 @@ const Login = () => {
         setLoginError({});
 
         // If there are no validation errors then the api call is done and we get the response from the server.
-        const response = await axiosInstance.post("/login", {
+        const response = await axios.post("/login", {
             email: emailRef.current.value,
             password: passwordRef.current.value,
         }, { withCredentials: true });
@@ -53,9 +53,9 @@ const Login = () => {
         console.log('Login', response);
 
          // Here I have to manually set cookies in frontend because when I am hosting this website the backend is not able to send cookies to frontend
-        if(response.data.status === 200){
-            Cookies.set('token',response.data.token);
-        }
+        // if(response.data.status === 200){
+        //     Cookies.set('token',response.data.token);
+        // }
 
         // Set the user in our state/store so that we can access it across the application
         dispatch(setUser(response.data.userObj))

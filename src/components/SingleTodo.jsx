@@ -35,7 +35,7 @@ const SingleTodo = ({ todo, todoOperationMessage, setTodoOperationMessage }) => 
 
     let token = Cookies.get('token');
     const deleteTodoHandler = async (taskId) => {
-        const response = await axiosInstance.delete(`/delete-user-task/${taskId}`, { headers: { "Authorization": `Bearer ${token}` } })
+        const response = await axios.delete(`/delete-user-task/${taskId}`, { headers: { "Authorization": `Bearer ${token}` } })
         console.log('This is resp of delete', response);
 
         dispatch(deleteTask(response.data.allTasks));
@@ -65,7 +65,7 @@ const SingleTodo = ({ todo, todoOperationMessage, setTodoOperationMessage }) => 
             return setUpdateTaskInputError(true)
         }
 
-        const response = await axiosInstance.post(
+        const response = await axios.post(
             `/update-user-task/${taskId}`,
             {
                 newUpdatedTask: updateTaskInput.toLowerCase(),
@@ -89,7 +89,7 @@ const SingleTodo = ({ todo, todoOperationMessage, setTodoOperationMessage }) => 
     const completeTaskHandler = async (isComplete, taskId) => {
         // console.log('isComplete', isComplete);
 
-        const response = await axiosInstance.post(`/update-task-status/${taskId}`,
+        const response = await axios.post(`/update-task-status/${taskId}`,
             {
                 isComplete,
             },

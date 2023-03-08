@@ -2,7 +2,7 @@ import React from 'react'
 import { useState } from 'react'
 import { Alert, Button, Col, Container, Form, Row } from 'react-bootstrap';
 import { useParams, useNavigate } from 'react-router-dom'
-import { axiosInstance } from '../axiosInstance';
+import axios from 'axios';
 
 const ResetPasswordComp = () => {
     const [showAlert, setShowAlert] = useState({
@@ -21,7 +21,7 @@ const ResetPasswordComp = () => {
 
     const resetPasswordHandler = async () => {
         if (resetPasswordInfo.newPassword && resetPasswordInfo.confirmPassword) {
-            const resp = await axiosInstance.post("/reset-user-password", { newPassword: resetPasswordInfo.newPassword, confirmPassword: resetPasswordInfo.confirmPassword, userId });
+            const resp = await axios.post("/reset-user-password", { newPassword: resetPasswordInfo.newPassword, confirmPassword: resetPasswordInfo.confirmPassword, userId });
             console.log('resp', resp);
 
             if (resp.data.status === 200) {

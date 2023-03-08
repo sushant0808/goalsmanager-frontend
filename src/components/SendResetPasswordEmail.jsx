@@ -1,6 +1,6 @@
 import React from 'react'
 import { useState } from 'react'
-import { axiosInstance } from '../axiosInstance';
+import axios from 'axios';
 import Cookies from 'js-cookie';
 import { Button, Col, Container, Form, Row } from 'react-bootstrap';
 import Alert from 'react-bootstrap/Alert';
@@ -16,7 +16,7 @@ const SendResetPasswordEmail = () => {
     const sendResetPasswordEmail = async () => {
         if (emailInput) {
             console.log('bass');
-            const resp = await axiosInstance.post("/send-forgot-password-email", { userEmail: emailInput }, { headers: { "Authorization": `Bearer ${Cookies.get('token')}` } })
+            const resp = await axios.post("/send-forgot-password-email", { userEmail: emailInput }, { headers: { "Authorization": `Bearer ${Cookies.get('token')}` } })
 
             setShowAlert({
                 message: resp.data.message,
