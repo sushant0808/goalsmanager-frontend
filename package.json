@@ -1,5 +1,4 @@
 {
-  "proxy": "https://task-manager-api-r6zi.onrender.com/",
   "name": "my-app",
   "version": "0.1.0",
   "private": true,
