@@ -24,38 +24,33 @@ function App() {
 
   const sendReminderEmail = async () => {
     let token = Cookies.get("token");
-    const response = await axios.get("/send-reminder-email", {
+    const response = await axiosInstance.get("/send-reminder-email", {
       headers: { Authorization: `Bearer ${token}` },
     });
     console.log("send reminder email wala", response);
   };
 
+  const now = new Date();
+
   useEffect(() => {
     var now = new Date();
     let timeForFirstEmail =
-      new Date(now.getFullYear(), now.getMonth(), now.getDate(), 19, 30, 0, 0) -
+      new Date(now.getFullYear(), now.getMonth(), now.getDate(), 22, 0, 0, 0) -
       now;
     if (timeForFirstEmail < 0) {
       timeForFirstEmail += 86400000; // it's after 10am, try 10am tomorrow.
     }
 
-    let timeForSecondEmail =
-      new Date(now.getFullYear(), now.getMonth(), now.getDate(), 22, 0, 0, 0) -
-      now;
-    if (timeForSecondEmail < 0) {
-      timeForSecondEmail += 86400000; // it's after 10am, try 10am tomorrow.
-    }
+    // let timeForSecondEmail =
+    //   new Date(now.getFullYear(), now.getMonth(), now.getDate(), 22, 0, 0, 0) -
+    //   now;
+    // if (timeForSecondEmail < 0) {
+    //   timeForSecondEmail += 86400000; // it's after 10am, try 10am tomorrow.
+    // }
 
     let timeToDeleteUsersTasks =
-      new Date(
-        now.getFullYear(),
-        now.getMonth(),
-        now.getDate(),
-        22,
-        45,
-        50,
-        0
-      ) - now;
+      new Date(now.getFullYear(), now.getMonth(), now.getDate(), 23, 59, 0, 0) -
+      now;
     if (timeToDeleteUsersTasks < 0) {
       timeToDeleteUsersTasks += 86400000; // it's after 10am, try 10am tomorrow.
     }
@@ -66,15 +61,15 @@ function App() {
     }, timeForFirstEmail);
 
     // This setTimeout will execute at 10:00pm in the evening
-    setTimeout(function () {
-      sendReminderEmail();
-    }, timeForSecondEmail);
+    // setTimeout(function () {
+    //   sendReminderEmail();
+    // }, timeForSecondEmail);
 
     // This below setTimeOut will automatically execute and delete logged in users all tasks at 00:00 am and this will happen everyday.
     setTimeout(() => {
       let token = Cookies.get("token");
       const deleteUserTasks = async () => {
-        const resp = await axios.delete("/delete-users-all-tasks", {
+        const resp = await axiosInstance.delete("/delete-users-all-tasks", {
           headers: { Authorization: `Bearer ${token}` },
         });
         console.log("Users all task deleted resp", resp);
